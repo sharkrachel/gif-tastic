@@ -11,7 +11,7 @@
 // rejoice in making an api website all by yourself
 
 // array of topics 
-var topic = ["dog", "kitten", "fish", "elephant", "hedgehog", "panda"]
+var topic = ["puppy", "kitten", "fish", "elephant", "hedgehog", "panda"]
 
 // giphy api url
 // var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=FiWNirzIJ7fzTeTf89RrLK6Tmp4aosFw"
@@ -27,7 +27,7 @@ function createButton() {
     }
 }
 
-// create a new button with a 
+// create a new button from filling out a form
 $("#submit-button").on("click", function() {
     event.preventDefault();
     var userInput = $("#form-input").val();
@@ -39,6 +39,7 @@ $("#submit-button").on("click", function() {
  
 })
 
+// calls the giphy api and displays 10 gifs on the screen depending on which topic button is pressed. image is loaded as still.
 $(document).on("click", ".giphyBtn", function() {
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + $(this).attr("data-topic") + "&api_key=FiWNirzIJ7fzTeTf89RrLK6Tmp4aosFw&limit=10"
     $(".gifs").empty();
@@ -58,13 +59,15 @@ $(document).on("click", ".giphyBtn", function() {
             $(".gifs").prepend(img);
 
         }
+
+        //animates the image when clicked
         $(".animateImage").on("click", function(){
             var status = $(this).attr("data-status");
             if (status === "still") {
                 $(this).attr("src", $(this).attr("data-animate"));
                 $(this).attr("data-status", "animate");
             }
-
+        // pauses the image when clicked
             else {
                 $(this).attr("src", $(this).attr("data-still"));
                 $(this).attr("data-status", "still");
