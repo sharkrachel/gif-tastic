@@ -11,7 +11,7 @@
 // rejoice in making an api website all by yourself
 
 // array of topics 
-var topic = ["dog", "kitten", "fish", "elephant", "hedgehog", "pig"]
+var topic = ["dog", "kitten", "fish", "elephant", "hedgehog", "panda"]
 
 // giphy api url
 // var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=FiWNirzIJ7fzTeTf89RrLK6Tmp4aosFw"
@@ -20,12 +20,24 @@ var topic = ["dog", "kitten", "fish", "elephant", "hedgehog", "pig"]
 function createButton() {
     for (var i = 0; i < topic.length; i++) {
         var button = $("<button>");
-        button.attr("class", "giphyBtn btn btn-warning ml-2");
+        button.attr("class", "giphyBtn btn btn-warning ml-2 mt-2 mb-2");
         button.attr("data-topic", topic[i]);
         button.text(topic[i]);
         $(".buttons").append(button);
     }
 }
+
+// create a new button with a 
+$("#submit-button").on("click", function() {
+    event.preventDefault();
+    var userInput = $("#form-input").val();
+    var newButton = $("<button>");
+    newButton.attr("class", "giphyBtn btn btn-warning ml-2 mt-2 mb-2");
+    newButton.attr("data-topic", userInput);
+    newButton.text(userInput).appendTo(".buttons");
+    return false;
+ 
+})
 
 $(document).on("click", ".giphyBtn", function() {
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + $(this).attr("data-topic") + "&api_key=FiWNirzIJ7fzTeTf89RrLK6Tmp4aosFw&limit=10"

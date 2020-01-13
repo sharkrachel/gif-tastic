@@ -1,0 +1,10 @@
+img {
+    width: 200px;
+    height: auto;
+    margin: 10px;
+}
+
+.logo {
+    font-size: 48px;
+    color: red;
+}
