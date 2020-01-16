@@ -21,13 +21,18 @@ img {
 }
 
 .gifs {
- 
+ max-width: 800px;
 }
 
 .logo {
     font-size: 48px;
     color: red;
+    margin-left: 45px;
    
+}
+
+.buttons {
+    margin-left: 40px; 
 }
 
 .rating {
@@ -47,9 +52,40 @@ img {
     max-width: 210px;
     float: left;
     position: relative;
+    
 
 }
 
 #submit-button {
     margin-top: 5px;
+}
+
+.container {
+    margin-left: 40px;
+}
+
+
+@media only screen and (max-width: 1080px) {
+
+.gifs {
+    max-width: 600px;
+}
+
+.form-group {
+    top: 140px;
+    right: 180px;
+
+}
+
+}
+
+@media only screen and (max-width: 1080px) { 
+
+    
+    .form-group {
+        top: 140px;
+        right: 60px;
+    
+    }
+
 }

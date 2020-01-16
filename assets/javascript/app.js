@@ -49,25 +49,30 @@ $(document).on("click", ".giphyBtn", function () {
     }).then(function (response) {
         console.log(response);
         for (var i = 0; i < response.data.length; i++) {
+            var rating = response.data[i].rating;
             var imgDiv = $("<div>");
             var img = $("<img>");
             var p = $("<p>");
+            var favoriteButton = $("<button>");
+            favoriteButton.addClass("favorite-button");
+            favoriteButton.attr("data-still", response.data[i].images.original_still.url);
+            favoriteButton.attr("data-animate", response.data[i].images.original.url);
+            favoriteButton.text("Favorite");
             imgDiv.addClass("img-div")
             p.addClass("rating");
-            var rating = response.data[i].rating;
-            console.log(rating);
-            p.attr("src", rating); 
+            p.attr("src", rating);
             img.attr("class", "animateImage")
             img.attr("src", response.data[i].images.original_still.url)
             img.attr("data-animate", response.data[i].images.original.url);
             img.attr("data-still", response.data[i].images.original_still.url);
             img.attr("data-status", "still");
             img.attr("data-status", "animate");
+            imgDiv.prepend(favoriteButton);
             imgDiv.prepend("Rating: " + rating);
             imgDiv.prepend(img);
             // $(".gifs").prepend("Rating: " + rating);
             $(".gifs").prepend(imgDiv);
-            
+
         }
 
         //animates the image when clicked
@@ -82,6 +87,20 @@ $(document).on("click", ".giphyBtn", function () {
                 $(this).attr("src", $(this).attr("data-still"));
                 $(this).attr("data-status", "still");
             }
+
+        })
+
+        $(".favorite-button").on("click", function () {
+            var favorite = $("<img>").attr("src", $(this).attr("data-still"))
+            favorite.addClass("animateImage");
+            favorite.attr("data-status", "still");
+            favorite.attr("data-status", "animate");
+            favorite.attr("data-animate", $(this).attr("data-animate"));
+            favorite.attr("data-still", $(this).attr("data-still"));
+            console.log(favorite);
+            var favDiv = $("<div>");
+            favDiv.append(favorite);
+            $(".favorites").prepend(favDiv);
 
         })
 
