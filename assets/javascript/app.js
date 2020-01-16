@@ -28,7 +28,7 @@ function createButton() {
 }
 
 // create a new button from filling out a form
-$("#submit-button").on("click", function() {
+$("#submit-button").on("click", function () {
     event.preventDefault();
     var userInput = $("#form-input").val();
     var newButton = $("<button>");
@@ -36,38 +36,48 @@ $("#submit-button").on("click", function() {
     newButton.attr("data-topic", userInput);
     newButton.text(userInput).appendTo(".buttons");
     return false;
- 
+
 })
 
 // calls the giphy api and displays 10 gifs on the screen depending on which topic button is pressed. image is loaded as still.
-$(document).on("click", ".giphyBtn", function() {
+$(document).on("click", ".giphyBtn", function () {
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + $(this).attr("data-topic") + "&api_key=FiWNirzIJ7fzTeTf89RrLK6Tmp4aosFw&limit=10"
     $(".gifs").empty();
     $.ajax({
         url: queryURL,
         method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
         console.log(response);
         for (var i = 0; i < response.data.length; i++) {
+            var imgDiv = $("<div>");
             var img = $("<img>");
+            var p = $("<p>");
+            imgDiv.addClass("img-div")
+            p.addClass("rating");
+            var rating = response.data[i].rating;
+            console.log(rating);
+            p.attr("src", rating); 
             img.attr("class", "animateImage")
-            img.attr("src",response.data[i].images.original_still.url)
+            img.attr("src", response.data[i].images.original_still.url)
             img.attr("data-animate", response.data[i].images.original.url);
-            img.attr("data-still",response.data[i].images.original_still.url);
+            img.attr("data-still", response.data[i].images.original_still.url);
             img.attr("data-status", "still");
             img.attr("data-status", "animate");
-            $(".gifs").prepend(img);
-
+            imgDiv.prepend("Rating: " + rating);
+            imgDiv.prepend(img);
+            // $(".gifs").prepend("Rating: " + rating);
+            $(".gifs").prepend(imgDiv);
+            
         }
 
         //animates the image when clicked
-        $(".animateImage").on("click", function(){
+        $(".animateImage").on("click", function () {
             var status = $(this).attr("data-status");
             if (status === "still") {
                 $(this).attr("src", $(this).attr("data-animate"));
                 $(this).attr("data-status", "animate");
             }
-        // pauses the image when clicked
+            // pauses the image when clicked
             else {
                 $(this).attr("src", $(this).attr("data-still"));
                 $(this).attr("data-status", "still");
@@ -76,7 +86,7 @@ $(document).on("click", ".giphyBtn", function() {
         })
 
     })
-} )
+})
 
 createButton();
 
