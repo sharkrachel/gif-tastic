@@ -11,7 +11,7 @@
 // rejoice in making an api website all by yourself
 
 // array of topics 
-var topic = ["puppy", "kitten", "koala", "lamb", "hedgehog", "piglet"]
+var topic = ["puppy", "kitten", "koala", "penguin", "hedgehog", "piglet"]
 
 // giphy api url
 // var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=FiWNirzIJ7fzTeTf89RrLK6Tmp4aosFw"
@@ -130,11 +130,13 @@ $(document).ready(function(){
     console.log(JSON.parse(localStorage.getItem("favorites")));
     var data = JSON.parse(localStorage.getItem("favorites"));
     for (var i = 0; i < data.length; i++) {
-        var favorite = $("<img>").attr("src", data[i].animate); 
-        favorite.attr("src", data[i].still);
+        var favorite = $("<img>").attr("src", data[i].still);
+        favorite.attr("class", "animateImage favoriteImage") 
+        favorite.attr("data-still", data[i].still);
+        favorite.attr("data-animate", data[i].animate);
         favorite.attr("data-status", "animate");
         favorite.attr("data-status", "still");
-        $(".favorites").prepend(favorite);
+        $(".favorites").append(favorite);
     }
 
     // var favorite = $("<img>").attr("src", data.still);
