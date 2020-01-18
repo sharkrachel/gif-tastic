@@ -43,8 +43,16 @@ img {
 .form-group {
     float: left;
     position: absolute;
-    right: 200px;
-    top: 100px;
+    right: 230px;
+    top: 125px;
+}
+
+.favorites {
+   float:left;
+    position: absolute;
+    right: 100px;
+    top: 300px; 
+    max-width: 240px; 
 }
 
 
@@ -62,6 +70,12 @@ img {
 
 .container {
     margin-left: 40px;
+}
+
+.favorite-button {
+   padding: 1px;
+   margin-left: 80px; 
+   margin-top: 5px;
 }
 
 
@@ -87,5 +101,48 @@ img {
         right: 60px;
     
     }
-
 }
+
+@media only screen and (max-width: 760px) { 
+
+    
+    .form-group {
+        top: 220px;
+        right: 60px;
+    
+    }
+
+    .gifs {
+        max-width: 240px;
+   
+    }
+
+    .buttons {
+        max-width: 240px;
+    }
+    
+    .clearfix {
+        margin-top: 120px; 
+    }
+}
+
+@media only screen and (max-width: 420px) { 
+
+    
+    .form-group {
+        top: 238px;
+        right: 170px;
+    
+    }
+}
+
+@media only screen and (max-width: 360px) { 
+
+    
+    .form-group {
+        top: 315px;
+        right: 120px;
+    
+    }
+}
+

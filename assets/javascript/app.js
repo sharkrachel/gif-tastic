@@ -11,7 +11,7 @@
 // rejoice in making an api website all by yourself
 
 // array of topics 
-var topic = ["puppy", "kitten", "fish", "elephant", "hedgehog", "panda"]
+var topic = ["puppy", "kitten", "koala", "lamb", "hedgehog", "piglet"]
 
 // giphy api url
 // var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=FiWNirzIJ7fzTeTf89RrLK6Tmp4aosFw"
@@ -47,14 +47,14 @@ $(document).on("click", ".giphyBtn", function () {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        console.log(response);
         for (var i = 0; i < response.data.length; i++) {
+            
             var rating = response.data[i].rating;
             var imgDiv = $("<div>");
             var img = $("<img>");
             var p = $("<p>");
             var favoriteButton = $("<button>");
-            favoriteButton.addClass("favorite-button");
+            favoriteButton.addClass("favorite-button btn btn-warning");
             favoriteButton.attr("data-still", response.data[i].images.original_still.url);
             favoriteButton.attr("data-animate", response.data[i].images.original.url);
             favoriteButton.text("Favorite");
@@ -76,7 +76,7 @@ $(document).on("click", ".giphyBtn", function () {
         }
 
         //animates the image when clicked
-        $(".animateImage").on("click", function () {
+        $(document).on("click", ".animateImage", function () {
             var status = $(this).attr("data-status");
             if (status === "still") {
                 $(this).attr("src", $(this).attr("data-animate"));
@@ -90,22 +90,59 @@ $(document).on("click", ".giphyBtn", function () {
 
         })
 
-        $(".favorite-button").on("click", function () {
+        $(".favorite-button").on("click", function (event) {
+            console.dir(event.target);
             var favorite = $("<img>").attr("src", $(this).attr("data-still"))
             favorite.addClass("animateImage");
             favorite.attr("data-status", "still");
             favorite.attr("data-status", "animate");
             favorite.attr("data-animate", $(this).attr("data-animate"));
             favorite.attr("data-still", $(this).attr("data-still"));
-            console.log(favorite);
             var favDiv = $("<div>");
             favDiv.append(favorite);
             $(".favorites").prepend(favDiv);
 
+            //check to see if something is stored in favorites
+            //if not, setItem
+            // if yes, push item to array
+
+            var favoriteArray = JSON.parse(localStorage.getItem("favorites"));
+            if (favoriteArray) {
+                console.log(favoriteArray);
+                favoriteArray.push(event.target.dataset);
+                localStorage.setItem("favorites", JSON.stringify(favoriteArray));
+            }
+
+            else {
+                favoriteArray = [event.target.dataset];
+                localStorage.setItem("favorites", JSON.stringify(favoriteArray));
+            }
+            // localStorage.setItem("favorites", JSON.stringify(event.target.dataset));
+
+
         })
 
-    })
+    });
+
 })
+
+$(document).ready(function(){
+    console.log(JSON.parse(localStorage.getItem("favorites")));
+    var data = JSON.parse(localStorage.getItem("favorites"));
+    for (var i = 0; i < data.length; i++) {
+        var favorite = $("<img>").attr("src", data[i].animate); 
+        favorite.attr("src", data[i].still);
+        favorite.attr("data-status", "animate");
+        favorite.attr("data-status", "still");
+        $(".favorites").prepend(favorite);
+    }
+
+    // var favorite = $("<img>").attr("src", data.still);
+    
+
+
+// $(".favorites").text(localStorage.getItem("favorites"))
+});
 
 createButton();
 
